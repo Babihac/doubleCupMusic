@@ -15,7 +15,6 @@ import ReactHowler from 'react-howler'
 import { useEffect, useState, useRef, FC } from 'react'
 import {
   MdShuffle,
-  MdPreview,
   MdSkipPrevious,
   MdOutlinePlayCircleFilled,
   MdOutlineRepeat,
@@ -65,19 +64,19 @@ const Player: FC<Props> = ({ songs, activeSong }) => {
     })
   }
   const nextSong = () => {
-    setIndex((prev) => {
+    setIndex((state) => {
       if (shuffle) {
-        const next = Math.floor(Math.random() * songs.length)
-        if (next === prev) {
-          return nextSong()
+        let next = Math.floor(Math.random() * songs.length)
+
+        while (next === state) {
+          next = Math.floor(Math.random() * songs.length)
         }
         return next
-      } else {
-        return prev === songs.length - 1 ? 0 : prev + 1
       }
+
+      return state === songs.length - 1 ? 0 : state + 1
     })
   }
-
   const onEnd = () => {
     if (repeatRef.current) {
       setSeek(0)

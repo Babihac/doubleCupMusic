@@ -1,7 +1,6 @@
 import { Box, Flex, Input, Button } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { FC, FormEvent, useState } from 'react'
-import useSWR from 'swr'
 import Image from 'next/image'
 import { auth } from '../lib/mutations'
 
@@ -18,7 +17,7 @@ const AuthForm: FC<Props> = ({ mode }) => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true)
-    const user = await auth(mode, { email, password })
+    await auth(mode, { email, password })
     setLoading(false)
     router.push('/')
   }

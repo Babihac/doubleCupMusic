@@ -9,7 +9,7 @@ export const validateRoute = (handler) => {
     if (token) {
       let user
       try {
-        const { id } = jwt.verify(token, 'hello')
+        const { id } = jwt.verify(token, 'hello') as any
         user = await prisma.user.findUnique({ where: { id } })
         if (!user) throw new Error('User not found')
       } catch (err) {
